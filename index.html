@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tony's Pizzeria - Austin, TX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           DESIGN PHILOSOPHY: Warm Italian Rustico
+           - Deep burgundy red (#8B0000) as primary
+           - Cream (#F5E6D3) as background
+           - Warm gold (#D4AF37) for accents
+           - Rustic serif fonts for authenticity
+           - Smooth animations and transitions
+           ============================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: #F5E6D3;
+            color: #2C1810;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography System */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #8B0000;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4vw, 2.75rem);
+            letter-spacing: 0.5px;
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+        }
+
+        p {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            margin-bottom: 1rem;
+        }
+
+        /* ============================================
+           STICKY NAVBAR
+           ============================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #8B0000 0%, #A50000 100%);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 800;
+            color: #F5E6D3;
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🍕";
+            font-size: 1.5em;
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(360deg); }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: #F5E6D3;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #D4AF37;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #F5E6D3;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: linear-gradient(135deg, #8B0000 0%, #A50000 100%);
+                flex-direction: column;
+                gap: 1rem;
+                padding: 2rem;
+                display: none;
+                width: 100%;
+                box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            margin-top: 70px;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.7) 0%, rgba(165, 0, 0, 0.7) 100%), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="wood" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse"><rect width="200" height="200" fill="%23654321"/><line x1="0" y1="0" x2="200" y2="0" stroke="%23523219" stroke-width="1" opacity="0.3"/><line x1="0" y1="50" x2="200" y2="50" stroke="%23523219" stroke-width="0.5" opacity="0.2"/><line x1="0" y1="100" x2="200" y2="100" stroke="%23523219" stroke-width="1" opacity="0.3"/></pattern></defs><rect width="1200" height="800" fill="url(%23wood)"/></svg>');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #F5E6D3;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 1s ease-out;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            color: #F5E6D3;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            letter-spacing: 3px;
+        }
+
+        .hero p {
+            color: #F5E6D3;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #D4AF37 0%, #E6C547 100%);
+            color: #2C1810;
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.6);
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* ============================================
+           MENU SECTION
+           ============================================ */
+        .menu {
+            padding: 5rem 2rem;
+            background-color: #F5E6D3;
+            position: relative;
+        }
+
+        .menu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B0000, transparent);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #8B0000;
+            animation: fadeIn 0.6s ease-out backwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .menu-item:nth-child(2) { animation-delay: 0.2s; }
+        .menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .menu-item:nth-child(4) { animation-delay: 0.4s; }
+        .menu-item:nth-child(5) { animation-delay: 0.5s; }
+        .menu-item:nth-child(6) { animation-delay: 0.6s; }
+
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.2);
+            border-left-color: #D4AF37;
+        }
+
+        .menu-item h3 {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .menu-price {
+            color: #D4AF37;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .menu-item p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* ============================================
+           ABOUT SECTION
+           ============================================ */
+        .about {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #F5E6D3 0%, #FFF9F0 100%);
+            position: relative;
+        }
+
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B0000, transparent);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.05rem;
+            color: #2C1810;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        /* ============================================
+           HOURS & LOCATION SECTION
+           ============================================ */
+        .hours-location {
+            padding: 5rem 2rem;
+            background-color: #F5E6D3;
+            position: relative;
+        }
+
+        .hours-location::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B0000, transparent);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .info-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(139, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            border-top: 4px solid #8B0000;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(139, 0, 0, 0.2);
+            border-top-color: #D4AF37;
+        }
+
+        .info-card h3 {
+            margin-bottom: 1.5rem;
+            color: #8B0000;
+        }
+
+        .info-card p {
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .hours-list {
+            text-align: left;
+            display: inline-block;
+        }
+
+        .hours-list p {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .day {
+            font-weight: 600;
+            color: #8B0000;
+        }
+
+        .time {
+            color: #666;
+        }
+
+        /* ============================================
+           CONTACT FORM SECTION
+           ============================================ */
+        .contact {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #F5E6D3 0%, #FFF9F0 100%);
+            position: relative;
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8B0000, transparent);
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2C1810;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #D4AF37;
+            border-radius: 5px;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            color: #2C1810;
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8B0000;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: linear-gradient(135deg, #8B0000 0%, #A50000 100%);
+            color: #F5E6D3;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.4);
+        }
+
+        .submit-button:active {
+            transform: translateY(0);
+        }
+
+        .form-message {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .form-message.success {
+            background-color: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .form-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        footer {
+            background: linear-gradient(135deg, #8B0000 0%, #A50000 100%);
+            color: #F5E6D3;
+            text-align: center;
+            padding: 3rem 2rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+            color: #F5E6D3;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            color: #F5E6D3;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #D4AF37;
+            transform: scale(1.2);
+        }
+
+        /* ============================================
+           RESPONSIVE DESIGN
+           ============================================ */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero {
+                margin-top: 60px;
+                height: 80vh;
+            }
+
+            .menu,
+            .about,
+            .hours-location,
+            .contact {
+                padding: 3rem 1.5rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section-title {
+                margin-bottom: 2rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1rem;
+            }
+
+            .logo::before {
+                font-size: 1.2em;
+            }
+
+            nav {
+                padding: 0.75rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .cta-button {
+                padding: 0.75rem 2rem;
+                font-size: 0.95rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hours-list p {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .menu,
+            .about,
+            .hours-location,
+            .contact {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Smooth scroll for anchor links */
+        a[href^="#"] {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">Tony's Pizzeria</a>
+        <ul id="navMenu">
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#hours">Hours & Location</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="menu-toggle" id="menuToggle">☰</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Tony's Pizzeria</h1>
+            <p>Authentic Italian Pizza Crafted with Passion</p>
+            <button class="cta-button" onclick="document.getElementById('menu').scrollIntoView({behavior: 'smooth'})">Order Now</button>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu">
+        <div class="section-title">
+            <h2>Our Menu</h2>
+        </div>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>
+                    Margherita
+                    <span class="menu-price">$12.99</span>
+                </h3>
+                <p>Fresh mozzarella, basil, tomato sauce, and olive oil on our signature crust.</p>
+            </div>
+            <div class="menu-item">
+                <h3>
+                    Pepperoni
+                    <span class="menu-price">$13.99</span>
+                </h3>
+                <p>Classic pepperoni with mozzarella cheese and our homemade tomato sauce.</p>
+            </div>
+            <div class="menu-item">
+                <h3>
+                    Quattro Formaggi
+                    <span class="menu-price">$15.99</span>
+                </h3>
+                <p>Four-cheese blend: mozzarella, ricotta, parmesan, and gorgonzola.</p>
+            </div>
+            <div class="menu-item">
+                <h3>
+                    Carnivore
+                    <span class="menu-price">$16.99</span>
+                </h3>
+                <p>Pepperoni, sausage, bacon, and ham with extra mozzarella.</p>
+            </div>
+            <div class="menu-item">
+                <h3>
+                    Vegetarian Delight
+                    <span class="menu-price">$14.99</span>
+                </h3>
+                <p>Bell peppers, mushrooms, olives, onions, spinach, and fresh tomatoes.</p>
+            </div>
+            <div class="menu-item">
+                <h3>
+                    Tony's Special
+                    <span class="menu-price">$17.99</span>
+                </h3>
+                <p>Our signature blend: pepperoni, sausage, fresh basil, and roasted garlic.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="section-title">
+            <h2>About Us</h2>
+        </div>
+        <div class="about-content">
+            <p>
+                Welcome to Tony's Pizzeria, where tradition meets passion. For over 20 years, we've been serving 
+                Austin's finest authentic Italian pizza, crafted using time-honored recipes and the freshest ingredients. 
+                Our wood-fired ovens reach temperatures of 900°F, creating the perfect crust with a crispy exterior and 
+                tender interior.
+            </p>
+            <p>
+                Every pizza is a masterpiece, prepared by our skilled pizzaiolos who take pride in their craft. We source 
+                our ingredients from trusted suppliers, ensuring quality in every bite. From our family to yours, we invite 
+                you to experience the warmth, flavor, and hospitality that makes Tony's Pizzeria a beloved Austin institution.
+            </p>
+        </div>
+    </section>
+
+    <!-- Hours & Location Section -->
+    <section id="hours" class="hours-location">
+        <div class="section-title">
+            <h2>Hours & Location</h2>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <h3>📍 Location</h3>
+                <p>1234 South Lamar Boulevard</p>
+                <p>Austin, TX 78704</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">
+                    <strong>Phone:</strong> (512) 555-0123
+                </p>
+            </div>
+            <div class="info-card">
+                <h3>🕐 Hours</h3>
+                <div class="hours-list">
+                    <p><span class="day">Monday - Thursday:</span> <span class="time">11:00 AM - 10:00 PM</span></p>
+                    <p><span class="day">Friday - Saturday:</span> <span class="time">11:00 AM - 11:00 PM</span></p>
+                    <p><span class="day">Sunday:</span> <span class="time">12:00 PM - 9:00 PM</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="section-title">
+            <h2>Get in Touch</h2>
+        </div>
+        <div class="contact-container">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-button">Send Message</button>
+                <div class="form-message" id="formMessage"></div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Tony's Pizzeria. All rights reserved.</p>
+        <p>Serving Austin, Texas with authentic Italian pizza since 2004.</p>
+        <div class="social-links">
+            <a href="#" title="Facebook">f</a>
+            <a href="#" title="Instagram">📷</a>
+            <a href="#" title="Twitter">𝕏</a>
+        </div>
+    </footer>
+
+    <script>
+        /* ============================================
+           MOBILE MENU TOGGLE
+           ============================================ */
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        /* ============================================
+           CONTACT FORM HANDLING
+           ============================================ */
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            // Basic validation
+            if (!name || !email || !message) {
+                formMessage.textContent = 'Please fill in all required fields.';
+                formMessage.className = 'form-message error';
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                formMessage.textContent = 'Please enter a valid email address.';
+                formMessage.className = 'form-message error';
+                return;
+            }
+
+            // Simulate form submission (in production, this would send to a server)
+            formMessage.textContent = 'Thank you for your message! We\'ll get back to you soon.';
+            formMessage.className = 'form-message success';
+
+            // Reset form
+            contactForm.reset();
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                formMessage.className = 'form-message';
+            }, 5000);
+        });
+
+        /* ============================================
+           SMOOTH SCROLL ENHANCEMENT
+           ============================================ */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        /* ============================================
+           SCROLL ANIMATIONS
+           ============================================ */
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe menu items and info cards for scroll animations
+        document.querySelectorAll('.menu-item, .info-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
